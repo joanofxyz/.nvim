@@ -3,6 +3,28 @@ M.name = "DBQuery"
 M.opts = {}
 M.keys = {{mode = "n", key = "<leader>fd", cmd = "<cmd>DBQuery<cr>"}}
 
+-- example .zshrc configuration
+-- _dbq_env() {
+--   if [[ "$#" -ne 1 || ("$1" != "dev" && "$1" != "stg" && "$1" != "prd") ]]; then
+--     echo "usage: dbq_env <dev | stg | prd>"
+--     return 2
+--   fi
+--
+--   DB_USERNAME=
+--   declare -A DBQ_PASSWORDS
+--   DBQ_PASSWORDS=(
+--     ["dev"]=""
+--     ["stg"]=""
+--     ["prd"]=""
+--   )
+--
+--   DBQ_ENV="$1"
+--   DBQ_PASSWORD=${DBQ_PASSWORDS[$DBQ_ENV]}
+--   export DBQ_DATABASES=""
+--   DBQ_DATABASES="redis=redis://localhost:6379 $DBQ_DATABASES"
+--   DBQ_DATABASES="some_database=jdbc:mysql://$DB_USERNAME:$DBQ_PASSWORD@127.0.0.1:1080 $DBQ_DATABASES"
+-- }
+
 local path, sd, query_float, update_line_count
 local helpers = require("config.helpers").window
 local LB_UI = "\r"
@@ -194,7 +216,8 @@ query_float = function(db, url, path_queries, float_bufnr)
         vim.api.nvim_win_hide(0)
         vim.ui.input({prompt = "dbquery - save filename"}, function(query_name)
           if query_name then
-            local save_path = write_file(path:new(path_queries, db), query_name, query)
+            local save_path = write_file(path:new(path_queries, db), query_name,
+                                         query)
             vim.notify("saved query to '" .. save_path .. "'")
           end
           query_float(db, url, path_queries, bufnr)
