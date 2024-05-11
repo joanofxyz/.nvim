@@ -1,0 +1,17 @@
+vim.g.mapleader = " "
+vim.opt.backup = false
+vim.opt.completeopt = {"menu", "menuone", "noselect"}
+vim.opt.mousemodel = "extend"
+vim.opt.nrformats = "alpha"
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
+vim.opt.shiftwidth = 4
+vim.opt.signcolumn = "yes"
+vim.opt.swapfile = false
+vim.opt.tabstop = 4
+vim.opt.termguicolors = true
+vim.opt.undodir = vim.fn.stdpath("state") .. "/undodir"
+vim.opt.undofile = true
+vim.opt.wrap = false
