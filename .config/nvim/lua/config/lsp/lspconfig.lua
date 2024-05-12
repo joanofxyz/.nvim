@@ -61,6 +61,8 @@ return {
       lspconfig["svelte"].setup(config)
       lspconfig["tsserver"].setup(config)
       lspconfig["gleam"].setup(config)
+
+      vim.cmd.e()
     end,
   },
 }
