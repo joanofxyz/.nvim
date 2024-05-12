@@ -26,7 +26,7 @@ return {
       "redis",
     },
     previewer_cmd = "glow",
-    cmd_args = {"-s", "dracula"},
+    cmd_args = {"-s", "~/.config/.themes/oxocabron/oxocabron.json"},
     float_win = {
       height = window.scale_height(0, 0.7),
       width = window.scale_width(0, 0.8),

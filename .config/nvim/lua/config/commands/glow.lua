@@ -22,7 +22,7 @@ M.fn = function()
 
   local previewer = job:new({
     command = "glow",
-    args = {"-s", "dracula"}, -- TODO: make oxocabron theme
+    args = {"-s", "~/.config/.themes/oxocabron/oxocabron.json"},
     on_stdout = vim.schedule_wrap(function(_, data)
       if not data then
         return
