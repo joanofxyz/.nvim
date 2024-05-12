@@ -27,7 +27,9 @@ local modules = {
 local plugins = {}
 for _, module in ipairs(modules) do
   for _, plugin in ipairs(module.plugins) do
-    plugin["event"] = "VeryLazy"
+    if not plugin.event then
+      plugin.event = "VeryLazy"
+    end
     table.insert(plugins, plugin)
   end
 end
