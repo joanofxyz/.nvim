@@ -4,8 +4,6 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "cmp-nvim-lsp",
-      "folke/neodev.nvim",
     },
     keys = {
       {"K", vim.lsp.buf.hover},
@@ -62,7 +60,7 @@ return {
       lspconfig["tsserver"].setup(config)
       lspconfig["gleam"].setup(config)
 
-      vim.cmd.e()
+      vim.cmd("LspStart")
     end,
   },
 }
