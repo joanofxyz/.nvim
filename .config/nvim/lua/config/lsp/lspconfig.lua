@@ -4,6 +4,7 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "folke/neodev.nvim",
     },
     keys = {
       {"K", vim.lsp.buf.hover},

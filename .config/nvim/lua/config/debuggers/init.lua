@@ -14,6 +14,7 @@ M.plugins = {
       {"<leader>dk", "<cmd>lua require('dap').step_out()<cr>"},
       {"<leader>dl", "<cmd>lua require('dap').step_over()<cr>"},
     },
+    event = "LspAttach",
     config = function()
       local dap = require("dap")
       go.setup(dap)

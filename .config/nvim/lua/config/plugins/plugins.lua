@@ -10,7 +10,7 @@ M.plugins = {
   -- {"andymass/vim-matchup"},
   {"theprimeagen/vim-be-good"},
   {"numToStr/Comment.nvim", opts = {}},
-  {"j-hui/fidget.nvim", tag = "legacy", opts = {}},
+  {"j-hui/fidget.nvim", event = "LspAttach", tag = "legacy", opts = {}},
   {"windwp/nvim-autopairs", opts = {disable_filetype = {"TelescopePrompt"}}},
   {
     "lewis6991/gitsigns.nvim",
