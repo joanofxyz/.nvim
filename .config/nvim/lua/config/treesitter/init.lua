@@ -5,10 +5,7 @@ M.plugins = {
     "nvim-treesitter/playground",
     dependencies = {"nvim-treesitter/nvim-treesitter"},
   },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = {"nvim-treesitter/nvim-treesitter"},
-  },
+  {"nvim-treesitter/nvim-treesitter-textobjects"},
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = {"nvim-treesitter/nvim-treesitter"},
@@ -21,6 +18,7 @@ M.plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
+    dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"},
     build = ":TSUpdate",
     config = function()
       local configs = require("nvim-treesitter.configs")
