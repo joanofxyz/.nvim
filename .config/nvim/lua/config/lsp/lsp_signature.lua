@@ -1,7 +1,7 @@
 return {
   {
     "ray-x/lsp_signature.nvim",
-    opts = {floating_window = false},
+    opts = {},
     config = function(_, opts)
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
