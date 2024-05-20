@@ -53,18 +53,18 @@ local purple = {
 
 }
 
-local black = hsl(0, 0, 83)
+local black = hsl(50, 50, 97)
 local white = hsl(0, 0, 17)
 local gray = {
-  darkestest = black.darken(DKF / 2),
+  darkestest = black.darken(DKF / 4),
   darkest = black.darken(DKF),
-  darker = black.darken(DKF * 2),
-  dark = black.darken(DKF * 3),
+  darker = black.darken(DKF * 3),
+  dark = black.darken(DKF * 4),
   normal = hsl(0, 0, 50),
-  light = white.lighten(DKF * 3),
-  lighter = white.lighten(DKF * 2),
+  light = white.lighten(DKF * 4),
+  lighter = white.lighten(DKF * 3),
   lightest = white.lighten(DKF),
-  lightestest = white.lighten(DKF / 2),
+  lightestest = white.lighten(DKF / 4),
 }
 
 vim.g.terminal_color_0 = gray.darkestest
