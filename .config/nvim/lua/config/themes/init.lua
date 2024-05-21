@@ -15,9 +15,10 @@ M.plugins = {
   },
 }
 
-local theme = "oxocabron"
--- local theme = "oxocabron_light"
--- local theme = "miasma"
-vim.cmd("colorscheme " .. theme)
+if tonumber(vim.fn.strftime("%H")) < 18 then
+  vim.cmd.colorscheme("oxocabron_light")
+else
+  vim.cmd.colorscheme("oxocabron")
+end
 
 return M

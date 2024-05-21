@@ -5,8 +5,6 @@ local helpers = require("shipwright.transform.helpers")
 local check_keys = {
   "fg",
   "bg",
-  "cursor_fg",
-  "cursor_bg",
   "black",
   "red",
   "green",

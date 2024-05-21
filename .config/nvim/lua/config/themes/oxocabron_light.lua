@@ -1,11 +1,11 @@
 local lush = require("lush")
 local hsl = lush.hsl
 
-local base = hsl(333, 30, 37)
+local base = hsl(333, 30, 63)
 
 local RF = 60 -- ROTATION_FACTOR
-local DSF = 67 -- DESATURATION_FACTOR
-local DKF = 7 -- DARKENING_FACTOR
+local DSF = 50 -- DESATURATION_FACTOR
+local DKF = 8 -- DARKENING_FACTOR
 
 local red = {
 	normal = base,
@@ -49,10 +49,10 @@ local purple = {
 	dark = base.rotate(RF * 5).desaturate(DSF).darken(DKF * 4),
 }
 
-local black = hsl(50, 50, 97)
+local black = hsl(50, 37, 97)
 local white = hsl(0, 0, 17)
 local gray = {
-	darkestest = black.darken(DKF / 4),
+	darkestest = black.darken(DKF * 0.25),
 	darkest = black.darken(DKF),
 	darker = black.darken(DKF * 3),
 	dark = black.darken(DKF * 4),
@@ -60,14 +60,12 @@ local gray = {
 	light = white.lighten(DKF * 4),
 	lighter = white.lighten(DKF * 3),
 	lightest = white.lighten(DKF),
-	lightestest = white.lighten(DKF / 4),
+	lightestest = white.lighten(DKF * 0.25),
 }
 
 local colors = {
-  fg = gray.lightest,
+  fg = gray.lighter,
   bg = gray.darkest,
-  cursor_fg = gray.darkest,
-  cursor_bg = gray.lightest,
   black = black,
   red = red.soft,
   green = green.soft,
@@ -91,10 +89,10 @@ local colors = {
   dim_blue = blue.dark,
   dim_magenta = purple.dark,
   dim_cyan = aqua.dark,
-  dim_white = gray.light
+  dim_white = gray.lightestest,
 }
 
-vim.g.terminal_color_0 = gray.darkestest
+vim.g.terminal_color_0 = gray.lighter
 vim.g.terminal_color_1 = red.soft
 vim.g.terminal_color_2 = green.soft
 vim.g.terminal_color_3 = yellow.soft
@@ -109,7 +107,7 @@ vim.g.terminal_color_11 = yellow.normal
 vim.g.terminal_color_12 = blue.normal
 vim.g.terminal_color_13 = purple.normal
 vim.g.terminal_color_14 = aqua.normal
-vim.g.terminal_color_15 = gray.lightestest
+vim.g.terminal_color_15 = gray.darkest
 
 ---@diagnostic disable: undefined-global
 return {
@@ -151,7 +149,7 @@ return {
 			MsgSeparator {StatusLine},
 			NvimTreeStatusLine {StatusLine},
 			MiniStatuslineFilename {StatusLine},
-			StatusLineNC {bg = black, fg = gray.normal},
+			StatusLineNC {bg = gray.darkestest, fg = gray.normal},
 			NvimTreeStatusLineNC {StatusLineNC},
 			MiniStatuslineInactive {StatusLineNC},
 			VertSplit {fg = black},
@@ -198,7 +196,7 @@ return {
 			PmenuThumb {bg = yellow.bright},
 			TabLine {bg = gray.darkestest, fg = gray.normal},
 			TabLineSel {bg = gray.normal, fg = gray.darkestest},
-			TabLineFill {bg = black},
+			TabLineFill {bg = gray.darkestest},
 			MiniTablineFill {TabLineFill},
 			CursorLine {bg = gray.darkest},
 			CursorColumn {CursorLine},
@@ -226,8 +224,8 @@ return {
 			MiniStarterItem {Normal},
 			NeotestTest {Normal},
 			Substitute {bg = red.soft, fg = gray.darkestest},
-			FloatShadow {blend = 80, bg = black},
-			FloatShadowThrough {blend = 100, bg = black},
+			FloatShadow {blend = 80, bg = gray.darkestest},
+			FloatShadowThrough {blend = 100, bg = gray.darkestest},
 			RedrawDebugNormal {gui = "reverse"},
 			RedrawDebugClear {bg = yellow.normal, fg = gray.darker},
 			RedrawDebugComposed {bg = green.normal, fg = gray.darker},
@@ -403,7 +401,7 @@ return {
 			NavicIconsTypeParameter {sym "@field"},
 			sym "@constructor" {fg = yellow.soft},
 			sym "@exception" {fg = gray.light},
-			sym "@variable" {fg = gray.lightest},
+			sym "@variable" {fg = gray.light},
 			NavicIconsVariable {sym "@variable"},
 			sym "@namespace" {fg = gray.normal},
 			sym "@lsp.type.namespace" {sym "@namespace"},
@@ -442,7 +440,7 @@ return {
 			NvimTreeFileNew {NvimTreeGitNew},
 			NvimTreeWindowPicker {gui = "bold", bg = blue.bright, fg = white},
 			NvimTreeLiveFilterPrefix {gui = "bold", fg = purple.normal},
-			NvimTreeNormal {bg = black, fg = gray.light},
+			NvimTreeNormal {bg = gray.darkestest, fg = gray.light},
 			NvimTreeSignColumn {NvimTreeNormal},
 			NvimTreeNormalNC {NvimTreeNormal},
 			NvimTreeFolderName {fg = blue.soft},
@@ -734,18 +732,18 @@ return {
 			sym "@variable.builtin" {fg = gray.light},
 			sym "@lsp.typemod.variable.defaultLibrary" {sym "@variable.builtin"},
 			AerialGuide {fg = gray.darker},
-			BufferCurrent {bg = gray.dark, fg = gray.lighter},
-			BufferCurrentIndex {bg = gray.dark, fg = blue.soft},
-			BufferCurrentMod {bg = gray.dark, fg = yellow.soft},
-			BufferCurrentSign {bg = gray.dark, fg = blue.soft},
-			BufferCurrentTarget {bg = gray.dark, fg = red.soft},
-			BufferInactive {bg = black, fg = gray.darker},
-			BufferInactiveIndex {bg = black, fg = gray.darker},
-			BufferInactiveMod {bg = black, fg = yellow.dark},
+			BufferCurrent {bg = gray.darker, fg = gray.light},
+			BufferCurrentIndex {bg = gray.darker, fg = blue.soft},
+			BufferCurrentMod {bg = gray.darker, fg = yellow.soft},
+			BufferCurrentSign {bg = gray.darker, fg = blue.soft},
+			BufferCurrentTarget {bg = gray.darker, fg = red.soft},
+			BufferInactive {bg = gray.darkestest, fg = gray.darker},
+			BufferInactiveIndex {bg = gray.darkestest, fg = gray.darker},
+			BufferInactiveMod {bg = gray.darkestest, fg = yellow.dark},
 			CmpItemAbbrDeprecated {gui = "strikethrough", fg = gray.normal},
-			BufferInactiveSign {bg = black, fg = gray.darkest},
-			BufferTabpages {bg = black},
-			BufferVisibleIndex {bg = black, fg = blue.soft},
+			BufferInactiveSign {bg = black, fg = gray.darker},
+			BufferTabpages {bg = gray.darkestest},
+			BufferVisibleIndex {bg = gray.darkestest, fg = blue.soft},
 			MiniTestPass {gui = "bold", fg = green.soft},
 			NeogitRemote {fg = green.soft},
 			MiniTestEmphasis {gui = "bold"},
@@ -771,7 +769,7 @@ return {
 			diffIndexLine {fg = gray.normal},
 			diffFile {fg = blue.soft},
 			diffChanged {fg = yellow.soft},
-			WhichKeyFloat {bg = black},
+			WhichKeyFloat {bg = gray.darkestest},
 			LspReferenceText {bg = gray.darkestest},
 			illuminatedWordWrite {LspReferenceText},
 			illuminatedWordRead {LspReferenceText},
@@ -787,8 +785,8 @@ return {
 			NotifyINFOIcon {NotifyINFOTitle},
 			TSRainbowViolet {fg = purple.soft},
 			GlyphPalette11 {fg = yellow.normal},
-			BufferTabpage {bg = black, fg = gray.darkest},
-			BufferVisible {bg = black, fg = gray.light},
+			BufferTabpage {bg = gray.darkestest, fg = gray.darker},
+			BufferVisible {bg = gray.darkestest, fg = gray.light},
 			NeoTreeDirectoryIcon {fg = blue.soft},
 			ModesVisual {bg = purple.soft, fg = gray.dark},
 			NeotestPassed {fg = green.soft},
@@ -836,7 +834,7 @@ return {
 			sym "@tag.attribute" {gui = "italic", fg = green.normal},
 			sym "@tag.delimiter" {fg = gray.normal},
 			MiniStatuslineModeNormal {gui = "bold", bg = aqua.soft, fg = black},
-			CmpDocumentation {bg = black, fg = gray.light},
+			CmpDocumentation {bg = gray.darkestest, fg = gray.light},
 			MiniStatuslineModeVisual {gui = "bold", bg = purple.soft, fg = black},
 			NeogitBranch {fg = yellow.soft},
 			MiniTablineCurrent {gui = "bold", bg = gray.darker, fg = gray.normal},
@@ -852,8 +850,8 @@ return {
 			NeoTreeFileName {fg = gray.normal},
 			NeoTreeFileNameOpened {fg = gray.light},
 			NotifyWARNBorder {fg = yellow.dark},
-			BufferVisibleMod {bg = black, fg = yellow.soft},
-			NeoTreeNormal {bg = black, fg = gray.light},
+			BufferVisibleMod {bg = gray.darkestest, fg = yellow.soft},
+			NeoTreeNormal {bg = gray.darkestest, fg = gray.light},
 			NeoTreeNormalNC {NeoTreeNormal},
 			sym "@text.strong" {gui = "bold", fg = red.soft},
 			sym "@text.todo.checked" {fg = green.soft},
@@ -876,7 +874,7 @@ return {
 			LspSagaRenameBorder {fg = gray.normal},
 			LspSagaSignatureHelpBorder {fg = red.soft},
 			LspTroubleCount {bg = gray.normal, fg = purple.soft},
-			LspTroubleNormal {bg = black, fg = gray.normal},
+			LspTroubleNormal {bg = gray.darkestest, fg = gray.normal},
 			LspTroubleText {fg = gray.normal},
 			MiniCompletionActiveParameter {gui = "underline"},
 			sym "@constructor.lua" {fg = gray.normal},
@@ -899,7 +897,7 @@ return {
 			NeogitNotificationError {fg = red.soft},
 			NeogitHunkHeaderHighlight {bg = gray.darkestest, fg = blue.soft},
 			sym "@text.todo.unchecked" {fg = gray.normal},
-			BufferInactiveTarget {bg = black, fg = red.soft},
+			BufferInactiveTarget {bg = gray.darkestest, fg = red.soft},
 			MiniStatuslineFileinfo {bg = gray.darkestest, fg = gray.normal},
 			MiniStatuslineDevinfo {bg = gray.darkestest, fg = gray.normal},
 			MiniIndentscopePrefix {gui = "nocombine"},
@@ -937,7 +935,7 @@ return {
 			NotifyDEBUGTitle {fg = green.soft},
 			NotifyDEBUGIcon {NotifyDEBUGTitle},
 			NeotestSkipped {fg = yellow.soft},
-			CmpDocumentationBorder {bg = black, fg = gray.darkestest},
+			CmpDocumentationBorder {bg = gray.darkestest, fg = gray.darker},
 			Bold {gui = "bold"},
 			NotifyDEBUGBorder {fg = green.dark},
 			NeoTreeDotfile {fg = blue.normal},
@@ -952,10 +950,10 @@ return {
 			NeogitDiffContextHighlight {bg = gray.darker},
 			NeogitDiffAddHighlight {bg = green.dark, fg = gray.darker},
 			NeogitDiffAdd {fg = green.soft},
-			BufferVisibleSign {bg = black, fg = blue.soft},
+			BufferVisibleSign {bg = gray.darkestest, fg = blue.soft},
 			LspFloatWinBorder {fg = gray.normal},
 			CocInlayHint {bg = gray.darkestest, fg = gray.darker},
-			BufferVisibleTarget {bg = black, fg = red.soft},
+			BufferVisibleTarget {bg = gray.darkestest, fg = red.soft},
 			sym "@text.warning" {bg = yellow.soft, fg = gray.darkestest},
 			sym "@keyword.return" {fg = gray.light},
 			sym "@punctuation.special" {fg = gray.normal},
@@ -1084,8 +1082,8 @@ return {
 			GitSignsStagedChangedeleteNr {fg = yellow.dark},
 			GitSignsStagedTopdeleteNr {fg = red.dark},
 			GitSignsStagedAddLn {bg = green.dark, fg = gray.darker},
-			GitSignsStagedChangeLn {bg = blue.dark},
-			GitSignsStagedChangedeleteLn {bg = blue.dark},
+			GitSignsStagedChangeLn {bg = blue.dark, fg = gray.darker},
+			GitSignsStagedChangedeleteLn {bg = blue.dark, fg = gray.darker},
 			GitSignsAddPreview {},
 			GitSignsDeletePreview {},
 			GitSignsCurrentLineBlame {},
