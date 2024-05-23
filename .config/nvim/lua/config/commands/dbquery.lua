@@ -171,8 +171,18 @@ query_float = function(db, url, path_queries, float_bufnr)
       end
 
       if string.find(url, "sql://") ~= nil then
-        vim.g.db = url -- set g:db for dadbod completions to work
-        vim.api.nvim_buf_set_option(bufnr, "filetype", "mysql")
+        local ok, err = pcall(function()
+          vim.g.db = url
+          vim.api.nvim_buf_set_option(bufnr, "filetype", "mysql")
+        end)
+        if not ok then
+          vim.schedule(function()
+            vim.api.nvim_buf_delete(bufnr, {})
+          end)
+          vim.notify(err or "failed to connect to database",
+                     vim.log.levels.ERROR)
+          return
+        end
       end
 
       vim.api.nvim_create_autocmd("TextChangedI", {
