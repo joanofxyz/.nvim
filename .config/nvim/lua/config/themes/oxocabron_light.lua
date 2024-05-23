@@ -64,8 +64,10 @@ local gray = {
 }
 
 local colors = {
-  fg = gray.lighter,
+  fg = gray.lightest,
   bg = gray.darkest,
+  cursor_fg = gray.darkest,
+  cursor_bg = gray.lightest,
   black = black,
   red = red.soft,
   green = green.soft,
@@ -89,10 +91,10 @@ local colors = {
   dim_blue = blue.dark,
   dim_magenta = purple.dark,
   dim_cyan = aqua.dark,
-  dim_white = gray.lightestest,
+  dim_white = gray.light
 }
 
-vim.g.terminal_color_0 = gray.lighter
+vim.g.terminal_color_0 = gray.darkestest
 vim.g.terminal_color_1 = red.soft
 vim.g.terminal_color_2 = green.soft
 vim.g.terminal_color_3 = yellow.soft
@@ -107,7 +109,7 @@ vim.g.terminal_color_11 = yellow.normal
 vim.g.terminal_color_12 = blue.normal
 vim.g.terminal_color_13 = purple.normal
 vim.g.terminal_color_14 = aqua.normal
-vim.g.terminal_color_15 = gray.darkest
+vim.g.terminal_color_15 = gray.lightestest
 
 ---@diagnostic disable: undefined-global
 return {
