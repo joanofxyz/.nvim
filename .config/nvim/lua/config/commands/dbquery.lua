@@ -69,9 +69,6 @@ local function update_buffer(text, bufnr)
   end
 
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
-  vim.schedule(function()
-    update_line_count(bufnr)
-  end)
 end
 
 local function perform_query(db_url, query)
@@ -118,7 +115,7 @@ local function perform_query(db_url, query)
   end
 end
 
-local function perform_query_from_file(db, url, path_queries, bufnr)
+local function load_query_from_file(db, url, path_queries, bufnr)
   local queries = list_dir(path:new(path_queries, db))
   if #queries == 0 then
     vim.notify("no queries found", vim.log.levels.ERROR)
@@ -185,7 +182,7 @@ query_float = function(db, url, path_queries, float_bufnr)
         end
       end
 
-      vim.api.nvim_create_autocmd("TextChangedI", {
+      vim.api.nvim_create_autocmd({"TextChanged", "TextChangedI"}, {
         buffer = bufnr,
         callback = function(_)
           update_line_count(bufnr)
@@ -201,7 +198,7 @@ query_float = function(db, url, path_queries, float_bufnr)
 
       vim.keymap.set("n", "<leader>oo", function()
         vim.api.nvim_win_hide(0)
-        perform_query_from_file(db, url, path_queries, bufnr)
+        load_query_from_file(db, url, path_queries, bufnr)
       end, {buffer = bufnr})
 
       vim.keymap.set("n", "<leader>rr", function()
@@ -231,7 +228,6 @@ query_float = function(db, url, path_queries, float_bufnr)
             vim.notify("saved query to '" .. save_path .. "'")
           end
           query_float(db, url, path_queries, bufnr)
-          update_line_count(bufnr)
         end)
       end, {buffer = bufnr})
     end,
