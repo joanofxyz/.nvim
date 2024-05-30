@@ -49,17 +49,17 @@ return {
         settings = {Lua = {format = {enable = false}}},
         unpack(config),
       })
+      lspconfig["prettierd"].setup(config)
       lspconfig["pyright"].setup(config)
       lspconfig["ruff_lsp"].setup(config)
       lspconfig["rust_analyzer"].setup(config)
+      lspconfig["sqlls"].setup(config)
       lspconfig["stylelint_lsp"].setup({
         filetypes = {"css", "scss", "sass", "less", "svelte"},
         unpack(config),
       })
-      lspconfig["sqlls"].setup(config)
       lspconfig["svelte"].setup(config)
       lspconfig["tsserver"].setup(config)
-      lspconfig["gleam"].setup(config)
 
       vim.cmd("LspStart")
     end,

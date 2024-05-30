@@ -4,7 +4,7 @@ local M = {}
 local plugins = {"devdocs", "notify", "oil"}
 
 M.plugins = {
-  {"nvim-lua/plenary.nvim"},
+  {"nvim-lua/plenary.nvim", lazy = false},
   {"tpope/vim-dadbod"},
   {"kristijanhusak/vim-dadbod-completion"},
   -- {"andymass/vim-matchup"},
