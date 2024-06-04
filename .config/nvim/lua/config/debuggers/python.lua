@@ -26,7 +26,7 @@ return {
         request = "launch",
         name = "Debug (with arguments)",
         program = "${file}",
-        args = helpers.get_arguments,
+        args = helpers.prompts.get_arguments,
         pythonPath = helpers.prompts.get_python_path,
       },
       {
@@ -40,8 +40,8 @@ return {
         type = "python",
         request = "launch",
         name = "Debug file (with arguments)",
-        program = helpers.get_file,
-        args = helpers.get_arguments,
+        program = helpers.prompts.get_file,
+        args = helpers.prompts.get_arguments,
         pythonPath = helpers.prompts.get_python_path,
       },
     }
