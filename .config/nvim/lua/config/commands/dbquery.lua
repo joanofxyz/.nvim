@@ -4,6 +4,8 @@ M.opts = {}
 M.keys = {{mode = "n", key = "<leader>fd", cmd = "<cmd>DBQuery<cr>"}}
 
 -- example .zshrc configuration
+-- export DBQ_QUERIES_PATH="<path>/queries" # directory with queries by database (queries/<database>/<query_name>.sql)
+-- export DBQ_DATABASES_PATH="<path>/dbq"   # file with database credentials separated by a newline
 -- _dbq_env() {
 --   if [[ "$#" -ne 1 || ("$1" != "dev" && "$1" != "stg" && "$1" != "prd") ]]; then
 --     echo "usage: dbq_env <dev | stg | prd>"
@@ -20,9 +22,11 @@ M.keys = {{mode = "n", key = "<leader>fd", cmd = "<cmd>DBQuery<cr>"}}
 --
 --   DBQ_ENV="$1"
 --   DBQ_PASSWORD=${DBQ_PASSWORDS[$DBQ_ENV]}
---   export DBQ_DATABASES=""
---   DBQ_DATABASES="redis=redis://localhost:6379 $DBQ_DATABASES"
---   DBQ_DATABASES="some_database=jdbc:mysql://$DB_USERNAME:$DBQ_PASSWORD@127.0.0.1:1080 $DBQ_DATABASES"
+--
+--   DBQ_DATABASES=""
+--   DBQ_DATABASES="redis=redis://localhost:6379\n$DBQ_DATABASES"
+--   DBQ_DATABASES="some_database=jdbc:mysql://$DB_USERNAME:$DBQ_PASSWORD@127.0.0.1:1080\n$DBQ_DATABASES"
+--   echo "$DBQ_DATABASES" > "$DBQ_DATABASES_PATH"
 -- }
 
 local path, sd, query_float, update_line_count
@@ -237,7 +241,14 @@ end
 M.fn = function()
   path = require("plenary.path")
   sd = require("plenary.scandir")
-  local databases = os.getenv("DBQ_DATABASES")
+
+  local databases_path = os.getenv("DBQ_DATABASES_PATH")
+  if databases_path == nil then
+    vim.notify("no database credentials file found", vim.log.levels.ERROR)
+    return
+  end
+
+  local databases = path:new(databases_path):readlines()
   if databases == nil then
     vim.notify("no databases found", vim.log.levels.ERROR)
     return
@@ -252,7 +263,10 @@ M.fn = function()
   -- a database must follow the pattern: "<db_name>=<db_url>"
   local db_names = {}
   local db_urls = {}
-  for db in string.gmatch(databases, "%S+") do
+  for _, db in ipairs(databases) do
+    if db == "" then
+      break -- skip last newline
+    end
     local delimiter_index = string.find(db, "=")
     if delimiter_index == nil then
       vim.notify("invalid database definition: got nil", vim.log.levels.ERROR)
