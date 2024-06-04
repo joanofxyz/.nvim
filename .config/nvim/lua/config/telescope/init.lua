@@ -33,10 +33,6 @@ M.plugins = {
           layout_strategy = "vertical",
           layout_config = {mirror = true},
           mappings = {
-            i = {
-              ["<s-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-              ["<c-q>"] = actions.send_to_qflist + actions.open_qflist,
-            },
             n = {
               ["<s-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
               ["<c-q>"] = actions.send_to_qflist + actions.open_qflist,
