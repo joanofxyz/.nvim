@@ -31,12 +31,12 @@ local function create_float(opts)
   end
 
   local relative = opts.float_opts and opts.float_opts.relative or "win"
-  local win_width =
-    relative == "editor" and vim.api.nvim_get_option("columns") or
-      vim.api.nvim_win_get_width(0)
-  local win_height =
-    relative == "editor" and vim.api.nvim_get_option("lines") or
-      vim.api.nvim_win_get_height(0)
+  local win_width = relative == "editor" and
+                      vim.api.nvim_get_option_value("columns", {}) or
+                      vim.api.nvim_win_get_width(0)
+  local win_height = relative == "editor" and
+                       vim.api.nvim_get_option_value("lines", {}) or
+                       vim.api.nvim_win_get_height(0)
   local float_width = win_width / 2
   local float_height = win_height / 2
 

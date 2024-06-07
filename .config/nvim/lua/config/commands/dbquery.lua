@@ -153,7 +153,8 @@ end
 update_line_count = function(bufnr)
   local win_buf = vim.api.nvim_win_get_buf(0)
   if win_buf == bufnr then
-    vim.api.nvim_win_set_height(0, vim.fn.line("$"))
+    local height = vim.api.nvim_win_text_height(0, {})["all"]
+    vim.api.nvim_win_set_height(0, height)
   end
 end
 
@@ -174,7 +175,7 @@ query_float = function(db, url, path_queries, float_bufnr)
       if string.find(url, "sql://") ~= nil then
         local ok, err = pcall(function()
           vim.g.db = url
-          vim.api.nvim_buf_set_option(bufnr, "filetype", "mysql")
+          vim.api.nvim_buf_set_option_value("filetype", "mysql", {buf = bufnr})
         end)
         if not ok then
           vim.schedule(function()

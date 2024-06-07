@@ -32,7 +32,7 @@ local filetype_mapping = {
 }
 local function handle_quit(bufnr, ignored_events)
   vim.api.nvim_del_augroup_by_name("prettify")
-  vim.api.nvim_set_option("eventignore", ignored_events)
+  vim.api.nvim_set_option_value("eventignore", ignored_events, {})
   vim.api.nvim_buf_delete(bufnr, {force = true})
 end
 
@@ -55,7 +55,7 @@ M.fn = function(args)
     return
   end
 
-  local ignored_events = vim.api.nvim_get_option("eventignore")
+  local ignored_events = vim.api.nvim_get_option_value("eventignore", {})
   local bufnr, _ = helpers.create_float({
     float_opts = {title = "prettifying '" .. lang .. "'", relative = "editor"},
     keys = {
@@ -88,9 +88,9 @@ M.fn = function(args)
       },
     },
     on_buf_create = function(bufnr)
-      vim.api.nvim_buf_set_option(bufnr, "buftype", "")
-      vim.api.nvim_buf_set_option(bufnr, "filetype", lang)
-      vim.api.nvim_set_option("eventignore", "BufWritePost")
+      vim.api.nvim_set_option_value("buftype", "", {buf = bufnr})
+      vim.api.nvim_set_option_value("filetype", lang, {buf = bufnr})
+      vim.api.nvim_set_option_value("eventignore", "BufWritePost", {})
       vim.api.nvim_create_augroup("prettify", {})
       vim.api.nvim_create_autocmd("BufWinEnter", {
         group = "prettify",

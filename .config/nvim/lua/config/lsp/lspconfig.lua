@@ -7,7 +7,6 @@ return {
       "folke/neodev.nvim",
     },
     keys = {
-      {"K", vim.lsp.buf.hover},
       {"<leader>bf", vim.lsp.buf.format},
       {"<leader>gd", vim.lsp.buf.definition},
       {"<leader>gt", vim.lsp.buf.type_definition},
@@ -16,8 +15,6 @@ return {
       {"<leader>ca", vim.lsp.buf.code_action},
       {"<leader>fr", "<cmd>Telescope lsp_references<cr>"},
       {"<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>"},
-      {"[d", vim.diagnostic.goto_prev},
-      {"]d", vim.diagnostic.goto_next},
       {
         "[D",
         "<cmd>lua require(\"telescope.builtin\").diagnostics({bufnr=0})<cr>",
