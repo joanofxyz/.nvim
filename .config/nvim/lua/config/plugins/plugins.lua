@@ -9,7 +9,6 @@ M.plugins = {
   {"kristijanhusak/vim-dadbod-completion"},
   -- {"andymass/vim-matchup"},
   {"theprimeagen/vim-be-good"},
-  {"numToStr/Comment.nvim", opts = {}},
   {"j-hui/fidget.nvim", event = "LspAttach", tag = "legacy", opts = {}},
   {"windwp/nvim-autopairs", opts = {disable_filetype = {"TelescopePrompt"}}},
   {
