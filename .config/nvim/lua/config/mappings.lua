@@ -21,7 +21,7 @@ M.common = {
   {mode = "x", key = "<leader><leader>p", cmd = "\"_dP"},
   {mode = "n", key = "<leader>cn", cmd = vim.cmd.cnext},
   {mode = "n", key = "<leader>cp", cmd = vim.cmd.cprev},
-  {mode = "n", key = "<leader>bd", cmd = "<cmd>%bd|e#<cr>"},
+  {mode = "n", key = "<leader>bd", cmd = "<cmd>%bd!|e#<cr>"},
 }
 
 ---@param t Keybinding[]

@@ -30,10 +30,12 @@ local filetype_mapping = {
     end,
   },
 }
-local function handle_quit(bufnr, ignored_events)
-  vim.api.nvim_del_augroup_by_name("prettify")
+local function handle_quit(bufnr, ignored_events, quit)
+  pcall(vim.api.nvim_del_augroup_by_name, "prettify")
   vim.api.nvim_set_option_value("eventignore", ignored_events, {})
-  vim.api.nvim_buf_delete(bufnr, {force = true})
+  if quit then
+    vim.api.nvim_buf_delete(bufnr, {force = true})
+  end
 end
 
 local helpers = require("config.helpers").window
@@ -63,7 +65,7 @@ M.fn = function(args)
         mode = "n",
         key = "q",
         cmd = function()
-          handle_quit(0, ignored_events)
+          handle_quit(0, ignored_events, true)
         end,
       },
       {
@@ -118,7 +120,7 @@ M.fn = function(args)
         group = "prettify",
         once = true,
         callback = function()
-          handle_quit(bufnr, ignored_events)
+          handle_quit(bufnr, ignored_events, false)
         end,
       })
     end,
@@ -127,7 +129,7 @@ M.fn = function(args)
   if lsp_handler ~= nil then
     local err = lsp_handler(bufnr)
     if err ~= nil then
-      handle_quit(bufnr, ignored_events)
+      handle_quit(bufnr, ignored_events, false)
       return
     end
   end

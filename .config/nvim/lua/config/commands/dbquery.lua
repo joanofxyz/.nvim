@@ -175,14 +175,14 @@ query_float = function(db, url, path_queries, float_bufnr)
       if string.find(url, "sql://") ~= nil then
         local ok, err = pcall(function()
           vim.g.db = url
-          vim.api.nvim_buf_set_option_value("filetype", "mysql", {buf = bufnr})
+          vim.api.nvim_set_option_value("filetype", "mysql", {buf = bufnr})
         end)
         if not ok then
           vim.schedule(function()
             vim.api.nvim_buf_delete(bufnr, {})
+            vim.notify(err or "failed to connect to database",
+                       vim.log.levels.ERROR)
           end)
-          vim.notify(err or "failed to connect to database",
-                     vim.log.levels.ERROR)
           return
         end
       end
